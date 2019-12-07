@@ -63,6 +63,15 @@ sudo systemctl enable docker                                # Enable docker on s
 sudo systemctl status docker                                # verify Docker service
 ```
 
+# Install Docker-compose
+```
+# 1. Download the Docker Compose binary into the `/usr/local/bin` directory with curl command:
+sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose             # Apply executable permissions to the Compose binary:
+docker-compose --version                                # Verify installation
+```
+
 
 # Uninstall Docker
 ```
@@ -78,4 +87,10 @@ sudo apt upgrade
 ```
 
 
+
+
+
+# Reference
+
+- https://linuxize.com/post/how-to-install-and-use-docker-on-ubuntu-18-04/
 

@@ -8,5 +8,16 @@
 
 ## Install Basic Libraries
 
-- Install Docker: refer to `docs/Docker.md`
+- Install Docker & Docker-compose: `docs/Docker.md`
 
+- Install Git
+```
+sudo apt update
+sudo apt install git
+git --version
+```
+
+- Get this repository to fetch Dockerfile and docker-compose.yml
+```
+sudo git clone https://github.com/uhdang/ec2-ubuntu-docker-jenkins-nginx
+```
