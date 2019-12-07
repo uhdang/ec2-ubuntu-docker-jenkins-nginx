@@ -20,7 +20,7 @@ git --version
 
 - Get this repository to fetch Dockerfile and docker-compose.yml
 ```
-sudo git clone https://github.com/uhdang/ec2-ubuntu-docker-jenkins-nginx
+sudo git clone https://github.com/uhdang/ec2-ubuntu-docker-jenkins-nginx setup
 ```
 
 Change the folder name into `setup`
@@ -38,6 +38,19 @@ docker-compose up -d
 
 - Go to [EC2-ADDRESS]:8080
 - Get initial password from `docker logs [CONTAINERNAME]`
+
+
+
+## Register pubic IP to route53
+
+- https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html
+
+
+
+## Nginx Setup
+
+- Install nginx: `docs/Nginx.md`
+
 
 
 
