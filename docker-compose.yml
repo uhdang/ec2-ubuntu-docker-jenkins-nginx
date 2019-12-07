@@ -7,8 +7,9 @@ services:
     environment:
       JENKINS_SLAVE_AGENT_PORT: "50000"
       JAVA_OPTS: "-Dorg.apache.commons.jelly.tags.fmt.timeZone=America/New_York"
+      USER: "ubuntu"                                  # $USER value
     ports:
-      - "8080:8080"                                   #host:container
+      - "8080:8080"                                   # host:container
     volumes:
-      - /Jenkins:/var/jenkins_home                    # Set the Jenkins home on the host machine
+      - /home/${USER}/Jenkins:/var/jenkins_home       # Set the Jenkins home on the host machine
       - /var/run/docker.sock:/var/run/docker.sock     # Allow the container to run Docker on Docker
