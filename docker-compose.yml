@@ -15,8 +15,8 @@ services:
       - "80:80"
     networks:
       - jenkins-net
-#    depends_on:
-#      - master
+    depends_on:
+      - master
   slave:
     build: ./jenkins-slave
   proxy:
