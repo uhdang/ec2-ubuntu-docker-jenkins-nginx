@@ -2,7 +2,6 @@ version: '3'
 services:
   master:
     build: ./jenkins-master
-    container_name: jenkins-master_1
     ports:
       - "50000:50000"
     volumes:
@@ -12,13 +11,22 @@ services:
       - jenkins-net
   nginx:
     build: ./jenkins-nginx
-    container_name: jenkins-nginx_1
     ports:
       - "80:80"
     networks:
       - jenkins-net
-    depends_on:
-      - master
+#    depends_on:
+#      - master
+  slave:
+    build: ./jenkins-slave
+  proxy:
+    build: ./docker-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      jenkins-net:
+        aliases:
+          - proxy1
 volumes:
   jenkins-data:
   jenkins-log:

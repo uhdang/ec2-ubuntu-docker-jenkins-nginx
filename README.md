@@ -1,5 +1,7 @@
 # ec2-ubuntu-docker-jenkins-nginx
 
+Exclusively Following - 
+
 ## Run ubuntu ec2 instance
 
 ### To Remember
@@ -66,4 +68,5 @@ ref: https://stackoverflow.com/questions/16931770/makefile4-missing-separator-st
 
 
 # Reference
+- https://technology.riotgames.com/news/thinking-inside-container
 - https://github.com/CraigsTraining/jenkins-ec2-docker

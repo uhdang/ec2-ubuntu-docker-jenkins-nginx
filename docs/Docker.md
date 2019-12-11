@@ -66,7 +66,8 @@ sudo systemctl status docker                                # verify Docker serv
 # Install Docker-compose
 ```
 # 1. Download the Docker Compose binary into the `/usr/local/bin` directory with curl command:
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# - 1.23.2 has reverted container name + slug feature
+sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose             # Apply executable permissions to the Compose binary:
 docker-compose --version                                # Verify installation
@@ -78,6 +79,14 @@ docker-compose --version                                # Verify installation
 sudo apt purge docker-ce
 sudo apt autoremove
 ```
+
+# Uninstall Docker-Compose
+
+To uninstall Docker Compose if you installed using `curl`:
+```
+sudo rm /usr/local/bin/docker-compose
+```
+ref: https://docs.docker.com/compose/install/#uninstallation
 
 
 # Upgrade Docker
