@@ -8,3 +8,5 @@ clean-data:
 	@docker-compose -p jenkins down -v
 clean-images:
 	@docker rmi `docker images -q -f "dangling=true"`
+status:
+    @docker-compose -p jenkins ps                       # Specifying project name
