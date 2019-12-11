@@ -1,27 +1,15 @@
-FROM debian:stretch
-LABEL maintainer="Jeong Jung Woo"
+FROM centos:centos7
+LABEL maintainer="mstewart@riotgames.com"
 
-ENV LANG C.UTF-8
-ENV JAVA_VERSION 8u162
-ENV JAVA_DEBIAN_VERSION 8u162-b12-1~deb9u1
-
-# see https://bugs.debian.org/775775
-# and https://github.com/docker-library/java/issues/19#issuecomment-70546872
-ENV CA_CERTIFICATES_JAVA_VERSION 20170531+nmu1
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN yum makecache \
+    && yum update -y \
+    && yum install -y \
     wget \
-    curl \
-    ca-certificates \
     zip \
     openssh-client \
     unzip \
-    openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
-    ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
+    java-1.8.0-openjdk \
+    && yum clean all
 
 ARG user=jenkins
 ARG group=jenkins
@@ -48,8 +36,8 @@ ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
 # Use tini as subreaper in Docker container to adopt zombie processes
-RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-$(dpkg --print-architecture) -o /sbin/tini \
-  && chmod +x /sbin/tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
+RUN chmod +x /bin/tini
 
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
@@ -66,18 +54,20 @@ VOLUME /var/jenkins_home
 # or config file with your custom jenkins Docker image.
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
 
+# Install Jenkins
 # could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 # see https://github.com/docker/docker/issues/8331
 RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
   && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
 
+# Prep Jenkins Directories
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
 RUN mkdir /var/log/jenkins
 RUN mkdir /var/cache/jenkins
 RUN chown -R ${user}:${user} /var/log/jenkins
 RUN chown -R ${user}:${user} /var/cache/jenkins
 
-# for main web and slave agents:
+# Expose Ports for web and slave agents
 EXPOSE ${http_port}
 EXPOSE ${agent_port}
 
@@ -93,6 +83,8 @@ RUN chmod +x /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy \
     && chmod +x /usr/local/bin/jenkins.sh \
     && chmod +x /usr/local/bin/install-plugins.sh
 
+# Switch to the jenkins user
 USER ${user}
 
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
+# Tini as the entry point to manage zombie processes
+ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
