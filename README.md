@@ -47,6 +47,13 @@ docker-compose up -d
 
 
 
+## Check for tab in i.e. makefile
+```commandline
+cat -e -t -v makefile
+```
+
+ref: https://stackoverflow.com/questions/16931770/makefile4-missing-separator-stop
+
 ## Nginx Setup
 
 - Install nginx: `docs/Nginx.md`

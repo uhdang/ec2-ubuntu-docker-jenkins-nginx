@@ -9,4 +9,4 @@ clean-data:
 clean-images:
 	@docker rmi `docker images -q -f "dangling=true"`
 status:
-    @docker-compose -p jenkins ps
+	@docker-compose -p jenkins ps
