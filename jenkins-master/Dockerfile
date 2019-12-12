@@ -17,7 +17,7 @@ ARG uid=1000
 ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
-ARG JENKINS_VERSION=2.112
+ARG JENKINS_VERSION=2.190.3
 ARG TINI_VERSION=v0.17.0
 
 # jenkins.war checksum, download will be validated using it
