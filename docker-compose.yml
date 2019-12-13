@@ -40,4 +40,5 @@ volumes:
   jenkins-log:
 networks:
   jenkins-net:
+  jeong-net:
 
