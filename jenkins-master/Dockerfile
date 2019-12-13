@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.60.3
+FROM jenkins/jenkins:2.190.1
 LABEL maintainer="Jeong Jung Woo"
 
 USER root
