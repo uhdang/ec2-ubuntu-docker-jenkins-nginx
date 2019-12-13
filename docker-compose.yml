@@ -15,8 +15,8 @@ services:
       - "80:80"
     networks:
       - jenkins-net
-    depends_on:
-      - master
+#    depends_on:
+#      - master
   slave:
     build: ./jenkins-slave
   proxy:
@@ -27,6 +27,16 @@ services:
       jenkins-net:
         aliases:
           - proxy1
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - jenkins-net
 volumes:
   jenkins-data:
   jenkins-log:
