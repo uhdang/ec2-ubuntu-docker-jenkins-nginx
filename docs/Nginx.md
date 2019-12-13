@@ -1,6 +1,15 @@
-# Nginx
+# Enable subdomain usage
 
-## Install to Ubuntu
+- Create Record Set of Type A with subdomain of your wish and register value with a public IP
+- Create a separate config file or add server field to nginx.conf
+- Configure server_name field i.e. server_name blog.jeong.eu
+- Using proxy_pass, pipe traffic to a running service i.e. docker host of http://jenkins_master_1:8080
+
+ref: https://www.koryporter.com/2019/07/21/using-aws-docker-nginx-and-subdomain-routing-to-host-all-of-your-node-apps-for-free.html
+
+
+
+# Install to Ubuntu
 
 01. Install
 
@@ -36,10 +45,9 @@ systemctl status nginx
 
 
 
-## Run Docker
 
 
-## Uninstall in Ubuntu
+# Uninstall in Ubuntu
 
 ```
 sudo apt-get remove nginx nginx-common      # Removes all but config files
