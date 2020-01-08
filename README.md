@@ -29,12 +29,18 @@ Change the folder name into `setup`
 
 ## Building the Jenkins Docker Image
 
+*** Use makefile
+
+OR
+
 ```
 mkdir /home/$USER/jenkins_data
 cd setup/
 docker-compose build
 docker-compose up -d
 ```
+
+
 
 ## Activate Jenkins
 
@@ -56,7 +62,9 @@ cat -e -t -v makefile
 
 ref: https://stackoverflow.com/questions/16931770/makefile4-missing-separator-stop
 
-## Nginx Setup
+
+
+## Nginx Setup (DEPRECATED - nginx is running in a container)
 
 - Install nginx: `docs/Nginx.md`
 
